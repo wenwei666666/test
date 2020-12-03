@@ -19,6 +19,17 @@
         *+html p {
             color: #f00;
         }
+
+        .test-box {
+            width: 100px;
+        }
+
+        .test-p {
+            margin-top: 10%;
+            background: #ff0;
+            width: 10px;
+            height: 10px;
+        }
     </style>
 </head>
 
@@ -31,22 +42,56 @@
     </p>
     <div style="width:400px;height:200px;overflow: hidden;">
         <span style="float:left;width:auto;height:100%;">
-                 <i style="position:absolute;float:left;width:100px;height:50px;">hello</i>
+            <i style="position:absolute;float:left;width:100px;height:50px;">hello</i>
         </span>
-      </div>
+    </div>
+    <div class="test-box">
+        <p class="test-p"></p>
+    </div>
+    <script src="test.js"></script>
     <script>
-        var foo = {
-            n: 1
+        function obj1(name) {
+            if (name) {
+                this.name = name
+            }
+            return this
+        }
+        obj1.prototype.name = "name2";
+        var a = obj1("name1");
+        var b = new obj1();
+        console.log(a)
+        console.log(b)
+        var A = {
+            n: 4399
         };
-        (function (foo) { //形参foo同实参foo一样指向同一片内存空间，这个空间里的n的值为1
-            var foo; //优先级低于形参，无效。
-            console.log(foo.n); //输出1
-            foo.n = 3; //形参与实参foo指向的内存空间里的n的值被改为3
-            foo = {
-                n: 2
-            }; //形参foo指向了新的内存空间，里面n的值为2.
-            console.log(foo.n); //输出新的内存空间的n的值
-        })(foo);
+        var B = function () {
+            this.n = 9999
+        }
+        var C = function () {
+            var n = 8888
+        }
+        B.prototype = A;
+        C.prototype = A;
+        var b = new B();
+        var c = new C();
+        console.log(b)
+        console.log(c)
+        A.n++;
+        // console.log(b.n);
+        console.log(c.n);
+
+        // var foo = {
+        //     n: 1
+        // };
+        // (function (foo) { //形参foo同实参foo一样指向同一片内存空间，这个空间里的n的值为1
+        //     var foo; //优先级低于形参，无效。
+        //     console.log(foo.n); //输出1
+        //     foo.n = 3; //形参与实参foo指向的内存空间里的n的值被改为3
+        //     foo = {
+        //         n: 2
+        //     }; //形参foo指向了新的内存空间，里面n的值为2.
+        //     console.log(foo.n); //输出新的内存空间的n的值
+        // })(foo);
 
         function test() {
             var n = 4399
@@ -60,13 +105,13 @@
                 add: add
             }
         }
-        var result = test()
-        var result2 = test()
-        result.add()
-        result.add()
+        // var result = test()
+        // var result2 = test()
+        // result.add()
+        // result.add()
         // console.log(result2)
-        console.log(result.n)
-        result2.add()
+        // console.log(result.n)
+        // result2.add()
 
         var m = 1
 
